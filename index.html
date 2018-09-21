@@ -1,7 +1,7 @@
 <html>
 <head>
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <!-- <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
   <script type="text/javascript">
     google.charts.load('current', {'packages':['gantt']});
     google.charts.setOnLoadCallback(drawChart);
@@ -61,11 +61,17 @@
 
         // ['Meet RW', 'Meet with Risa Wrighton', 'Assignment', new Date(2018, 10, 29), new Date(2018, 11, 6), null,  0,  'BM, CM'],
 
-        ['Final', 'Pitch to Phil Valko', 'Final', new Date(2018, 10, 29), new Date(2018, 11, 13), null,  0,  'CM, BM, Create BP, Create EP, Work']
+        ['Final', 'Pitch to Phil Valko', 'Final', new Date(2018, 10, 29), new Date(2018, 11, 13), null,  0,  'CM, BM, Create BP, Create EP, Work, Engage']
       ]);
 
       var options = {
-        height: 1000
+        height: 1000,
+        gantt: {
+          criticalPathEnabled: false,
+          labelStyle: {
+            fontName: 'Lato'
+  }
+}
       };
 
       var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
@@ -75,12 +81,15 @@
   </script>
 </head>
 <body>
-<!--   <style type="text/css">
-    div {
+  <style type="text/css">
+    body {
           font-family: 'Lato', sans-serif;
     }
-  </style> -->
-
+/*    text {
+          font-family: 'Lato', sans-serif, !important;
+    }*/
+  </style>
+  <h3>Sustainable Flowers Initiative</h3> 
   <div id="chart_div"></div>
 </body>
 </html>
