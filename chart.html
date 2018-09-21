@@ -1,0 +1,86 @@
+<html>
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <!-- <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet"> -->
+  <script type="text/javascript">
+    google.charts.load('current', {'packages':['gantt']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function daysToMilliseconds(days) {
+      return days * 24 * 60 * 60 * 1000;
+    }
+
+    function drawChart() {
+
+      var data = new google.visualization.DataTable();
+      // ID to link things
+      data.addColumn('string', 'Task ID'); 
+      // displayed name
+      data.addColumn('string', 'Task Name');
+      // what something is dependent upon
+      data.addColumn('string', 'Resource');
+      // start date 
+      data.addColumn('date', 'Start Date');
+      // end date (calculates it based on number of days)
+      data.addColumn('date', 'End Date');
+      // duration OR end date 
+      data.addColumn('number', 'Duration');
+      // how done it is --> could be changed to time remaining easily 
+      data.addColumn('number', 'Percent Complete');
+      // what something starting depends on --> for critical path diagram
+      data.addColumn('string', 'Dependencies');
+
+      // annotations for due dates
+      // data.addColumn({type: 'string', role: 'annotation'});
+      // data.addColumn({type: 'string', role: 'annotationText'});
+
+      // could be imported from a spreadsheet
+      data.addRows([
+        ['Research', 'Read documents', 'Assignment', new Date(2018, 8, 14), new Date(2018, 8, 20), null,  100,  null],
+        // ['Schedule SO', 'Schedule meeting with Cassie Hage', 'Schedule SO', null, new Date(2018, 8, 20), new Date(2018, 8, 20), 25, 'Research'],
+        // ['Meet SO', 'Meet with Cassie Hage', 'Schedule SO', new Date(2018, 8, 14), new Date(2018, 8, 20), null,  100,  'Schedule SO'],
+        ['Meet SO', 'Meet with Cassie Hage', 'Sustainability Office', new Date(2018, 8, 20), new Date(2018, 8, 28), null,  0,  'Research'],
+        // ['Meet PT', 'Meet with Patty Thorp', 'Research', new Date(2018, 8, 20), new Date(2018, 8, 28), null,  100,  'Research'],
+        // ['Identify EP', 'Identify event planners', 'Event Planners', new Date(2018, 8, 25), new Date(2018, 8, 28), null,  0,  'Meet SO'],
+          ['Meet EP', 'Meet with event planners', 'Event Planners', new Date(2018, 8, 28), new Date(2018, 9, 5), null,  0,  'Research'],
+            ['Create EP', 'Create Event Planner Needs Assessments', 'Event Planners', new Date(2018, 9, 5), new Date(2018, 9, 12), null,  0,  'Meet EP'],
+
+        ['Meet GM', 'Meet with grounds managers', 'Grounds Managers', new Date(2018, 9, 11), new Date(2018, 9, 19), null,  0,  'Research'], 
+
+        ['Create BP', 'Craft best practices', 'Grounds Managers', new Date(2018, 9, 19), new Date(2018, 9, 22), null,  0,  ' Meet GM, Meet EP'],
+
+        ['Meet FV', 'Meet with floral vendors', 'Floral Vendors', new Date(2018, 9, 11), new Date(2018, 9, 19), null,  0,  'Research'],
+
+        ['BM', 'Business Modeling', 'Assignment', new Date(2018, 9, 19), new Date(2018, 9, 26), null,  0,  'Meet EP, Meet GM, Meet FV'],
+
+        ['CM', 'Communication Modeling', 'Assignment', new Date(2018, 10, 1), new Date(2018, 10, 9), null,  0,  'Meet EP, Meet GM, Meet FV'],
+
+        ['Work', 'Work on deliverable', 'Assignment', new Date(2018, 10, 9), new Date(2018, 10, 13), null,  0,  'CM, BM, Create BP, Create EP'],
+
+        ['Engage', 'Engage with community', 'Assignment', new Date(2018, 10, 15), new Date(2018, 10, 29), null,  0,  'CM'],
+
+        // ['Meet RW', 'Meet with Risa Wrighton', 'Assignment', new Date(2018, 10, 29), new Date(2018, 11, 6), null,  0,  'BM, CM'],
+
+        ['Final', 'Pitch to Phil Valko', 'Final', new Date(2018, 10, 29), new Date(2018, 11, 13), null,  0,  'CM, BM, Create BP, Create EP, Work']
+      ]);
+
+      var options = {
+        height: 1000
+      };
+
+      var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+  </script>
+</head>
+<body>
+<!--   <style type="text/css">
+    div {
+          font-family: 'Lato', sans-serif;
+    }
+  </style> -->
+
+  <div id="chart_div"></div>
+</body>
+</html>
